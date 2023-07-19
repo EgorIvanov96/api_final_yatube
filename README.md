@@ -51,4 +51,17 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
+## Примеры запросов:
+
+- Получение списка всех постов: GET /api/posts/
+- Создание нового поста: POST /api/posts/
+- Получение деталей конкретного поста: GET /api/posts/{post_id}/
+- Комментирование поста: POST /api/posts/{post_id}/comments/
+- Получение списка комментариев к посту: GET /api/posts/{post_id}/comments/
+- Получение списка доступных сообществ: GET /api/v1/groups/
+- Получение списка подписок пользователя: GET /api/v1/follow/
+
+
+# Спасибо за использование нашего API! Будем рады видеть вас на Yatube!
+
 

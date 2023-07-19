@@ -1,14 +1,20 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+
 User = get_user_model()
+
 
 class Group(models.Model):
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='created_groups', null=True)
+        User, on_delete=models.CASCADE,
+        related_name='created_groups',
+        null=True
+    )
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
+
 
 class Post(models.Model):
     text = models.TextField()
@@ -37,5 +43,13 @@ class Comment(models.Model):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, related_name='followed_users', on_delete=models.CASCADE)
-    following = models.ForeignKey(User, related_name='following_users', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, 
+        related_name='followed_users',
+        on_delete=models.CASCADE
+    )
+    following = models.ForeignKey(
+        User,
+        related_name='following_users',
+        on_delete=models.CASCADE
+    )

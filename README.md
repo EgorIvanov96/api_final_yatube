@@ -63,5 +63,3 @@ python3 manage.py runserver
 
 
 # Спасибо за использование нашего API! Будем рады видеть вас на Yatube!
-
-

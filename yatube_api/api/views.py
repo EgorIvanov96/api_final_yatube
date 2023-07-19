@@ -17,7 +17,10 @@ from .permissions import IsAuthor, IsAuthorOrReadOnly
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly) 
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsAuthorOrReadOnly
+    )
     pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
@@ -42,7 +45,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         post_id = self.kwargs.get('post_id')
         return get_object_or_404(Post, pk=post_id)
 
-    def get_queryset(self): 
+    def get_queryset(self):
         return self.get_post().comments.all()
 
 

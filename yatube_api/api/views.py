@@ -11,7 +11,7 @@ from .serializers import (
     GroupsSerializer,
     FollowSerializer
 )
-from .permissions import IsAuthor, IsAuthorOrReadOnly
+from .permissions import IsAuthorOrReadOnly
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -29,7 +29,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAuthor)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly)
     pagination_class = None
 
     def perform_create(self, serializer):
@@ -59,13 +59,13 @@ class GroupAPIList(viewsets.ReadOnlyModelViewSet):
 class FollowViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-    permission_classes = (permissions.IsAuthenticated, IsAuthor)
+    permission_classes = (permissions.IsAuthenticated, IsAuthorOrReadOnly)
     search_fields = ('=following__username',)
     filter_backends = (filters.SearchFilter,)
     pagination_class = None
 
     def get_queryset(self):
-        return Follow.objects.filter(user=self.request.user)
+        return self.request.user.followed_users.all()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
